@@ -13,11 +13,15 @@
   "author": "Apache Cordova Team",
   "license": "Apache-2.0",
   "devDependencies": {
-    "cordova-android": "^11.0.0"
+    "cordova-android": "^11.0.0",
+    "notificationsound": "file:../../Plugin/NotificationSound"
   },
   "cordova": {
     "platforms": [
       "android"
-    ]
+    ],
+    "plugins": {
+      "NotificationSound": {}
+    }
   }
 }

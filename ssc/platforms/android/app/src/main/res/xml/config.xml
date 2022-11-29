@@ -1,26 +1,49 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="jp.co.sej.ssc.mb" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    id="jp.co.sej.ssc.mb"
+    version="1.0.0"
+    xmlns="http://www.w3.org/ns/widgets"
+    xsi:schemaLocation="http://www.w3.org/ns/widgets
+                        http://www.w3.org/ns/widgets.xsd">
     <name>ssc</name>
     <description>Sample Apache Cordova App</description>
-    <author email="dev@cordova.apache.org" href="https://cordova.apache.org">
+    <author
+        email="dev@cordova.apache.org"
+        href="https://cordova.apache.org">
         Apache Cordova Team
     </author>
-<!--    <content src="index.html" />-->
     <content src="http://localhost:4200" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
-    <preference name="loglevel" value="DEBUG" />
+    <preference
+        name="loglevel"
+        value="DEBUG" />
     <feature name="FCMPlugin">
-        <param name="android-package" value="jp.co.sej.ssc.mb.plugins.fcm.FCMPlugin" />
-        <param name="onload" value="true" />
+        <param
+            name="android-package"
+            value="jp.co.sej.ssc.mb.plugins.fcm.FCMPlugin" />
+        <param
+            name="onload"
+            value="true" />
     </feature>
     <feature name="AppSendContent">
-        <param name="android-package" value="jp.co.sej.ssc.mb.plugins.asc.AppSendContent" />
+        <param
+            name="android-package"
+            value="jp.co.sej.ssc.mb.plugins.asc.AppSendContent" />
     </feature>
     <feature name="SejLogManager">
-        <param name="android-package" value="jp.co.sej.ssc.mb.plugins.SejLogManager.SejLogManager.SejLogManager" />
+        <param
+            name="android-package"
+            value="jp.co.sej.ssc.mb.plugins.SejLogManager.SejLogManager.SejLogManager" />
     </feature>
     <feature name="BackgroundHandle">
-        <param name="android-package" value="jp.co.sej.ssc.mb.plugins.bh.BackgroundHandle" />
+        <param
+            name="android-package"
+            value="jp.co.sej.ssc.mb.plugins.bh.BackgroundHandle" />
+    </feature>
+    <feature name="NotificationSound">
+        <param
+            name="android-package"
+            value="jp.co.sej.ssc.mb.plugins.ns.NotificationSound" />
     </feature>
 </widget>

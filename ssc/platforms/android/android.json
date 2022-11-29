@@ -4,8 +4,36 @@
     "uninstalled": []
   },
   "config_munge": {
-    "files": {}
+    "files": {
+      "res/xml/config.xml": {
+        "parents": {
+          "/*": [
+            {
+              "xml": "<feature name=\"NotificationSound\"><param name=\"android-package\" value=\"jp.co.sej.ssc.mb.plugins.ns.NotificationSound\" /></feature>",
+              "count": 1
+            }
+          ]
+        }
+      }
+    }
   },
-  "installed_plugins": {},
-  "dependent_plugins": {}
+  "installed_plugins": {
+    "NotificationSound": {
+      "PACKAGE_NAME": "jp.co.sej.ssc.mb"
+    }
+  },
+  "dependent_plugins": {},
+  "modules": [
+    {
+      "id": "NotificationSound.NotificationSound",
+      "file": "plugins/NotificationSound/www/NotificationSound.js",
+      "pluginId": "NotificationSound",
+      "clobbers": [
+        "cordova.plugins.NotificationSound"
+      ]
+    }
+  ],
+  "plugin_metadata": {
+    "NotificationSound": "1.0.0"
+  }
 }
