@@ -45,6 +45,9 @@ public class NotificationSound extends CordovaPlugin {
                 int second = args.getInt(0);
                 this.vibratorNotification(second, callbackContext);
                 return true;
+            case "vibratorStop":
+                this.vibratorStop();
+                return true;
         }
         return false;
 
@@ -60,6 +63,10 @@ public class NotificationSound extends CordovaPlugin {
         VibrationEffect vibrationEffect = VibrationEffect.createOneShot(second, VibrationEffect.DEFAULT_AMPLITUDE);
         vibrator.vibrate(vibrationEffect);
         callbackContext.success();
+    }
+    private void vibratorStop() {
+        Vibrator vibrator = (Vibrator) cordova.getActivity().getSystemService(Service.VIBRATOR_SERVICE);
+        vibrator.cancel();
     }
 
     public static void sendPushPayload(String msg) {
