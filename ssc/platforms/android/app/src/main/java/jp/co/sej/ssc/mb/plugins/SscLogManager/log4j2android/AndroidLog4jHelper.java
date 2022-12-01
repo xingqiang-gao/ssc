@@ -1,4 +1,4 @@
-package jp.co.sej.ssc.mb.plugins.SejLogManager.log4j2android;
+package jp.co.sej.ssc.mb.plugins.SscLogManager.log4j2android;
 
 import android.content.Context;
 
@@ -32,9 +32,9 @@ public class AndroidLog4jHelper {
     public static void initialise(Context context, int configResource) {
         appContext = context;
         AndroidLog4jHelper.configResource = configResource;
-        System.setProperty("Log4jContextSelector", "jp.co.sej.ssc.mb.plugins.SejLogManager.log4j2android.AndroidContextSelector");
+        System.setProperty("Log4jContextSelector", "jp.co.sej.ssc.mb.plugins.SscLogManager.log4j2android.AndroidContextSelector");
         System.setProperty("log4j2.disable.jmx", "true");
-        injectPlugins("jp.co.sej.ssc.mb.plugins.SejLogManager.log4j2android", new Class<?>[] { AndroidLookup.class, LogcatAppender.class });
+        injectPlugins("jp.co.sej.ssc.mb.plugins.SscLogManager.log4j2android", new Class<?>[] { AndroidLookup.class, LogcatAppender.class });
     }
 
     public static void injectPlugins(String packageName, Class<?>[] classes) {

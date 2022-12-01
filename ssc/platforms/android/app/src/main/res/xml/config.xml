@@ -12,7 +12,8 @@
         href="https://cordova.apache.org">
         Apache Cordova Team
     </author>
-    <content src="http://localhost:4200" />
+<!--    <content src="http://localhost:4200" />-->
+    <content src="index.html" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <preference
@@ -31,10 +32,10 @@
             name="android-package"
             value="jp.co.sej.ssc.mb.plugins.asc.AppSendContent" />
     </feature>
-    <feature name="SejLogManager">
+    <feature name="SscLogManager">
         <param
             name="android-package"
-            value="jp.co.sej.ssc.mb.plugins.SejLogManager.SejLogManager.SejLogManager" />
+            value="jp.co.sej.ssc.mb.plugins.SscLogManager.SscLogManager.SscLogManager" />
     </feature>
     <feature name="BackgroundHandle">
         <param

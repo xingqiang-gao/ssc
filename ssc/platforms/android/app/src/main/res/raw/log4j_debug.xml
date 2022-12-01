@@ -9,7 +9,7 @@
         <RollingFile name="RollingFile" fileName="${android:logfilesdir}/DeviceAPLog_${date:yyyyMMdd}.log"
             filePattern="${android:logfilesdir}/DeviceAPLog_%d{yyyyMMdd}_%i.log">
             <PatternLayout>
-                <Pattern>%m%n</Pattern>
+                <Pattern>%-d{yyyy-MM-dd HH:mm:ss.SSS} - %m%n</Pattern>
             </PatternLayout>
             <Policies>
                 <SizeBasedTriggeringPolicy size="1 kb"/>

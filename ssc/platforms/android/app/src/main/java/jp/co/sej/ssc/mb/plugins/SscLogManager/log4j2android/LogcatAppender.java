@@ -1,4 +1,4 @@
-package jp.co.sej.ssc.mb.plugins.SejLogManager.log4j2android;
+package jp.co.sej.ssc.mb.plugins.SscLogManager.log4j2android;
 
 import android.util.Log;
 

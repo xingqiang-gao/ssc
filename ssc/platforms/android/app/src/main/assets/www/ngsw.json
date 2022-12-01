@@ -1,0 +1,108 @@
+{
+  "configVersion": 1,
+  "timestamp": 1669875131494,
+  "appData": {
+    "version": 14
+  },
+  "index": "/ssc-ng-com-app/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/ssc-ng-com-app/317.9f726e1f79d54e55.js",
+        "/ssc-ng-com-app/408.2711c476ef86ccf8.js",
+        "/ssc-ng-com-app/813.1a21045294d3e8ac.js",
+        "/ssc-ng-com-app/872.01773f29d90bc27a.js",
+        "/ssc-ng-com-app/favicon.ico",
+        "/ssc-ng-com-app/index.html",
+        "/ssc-ng-com-app/main.7048515ab89c1030.js",
+        "/ssc-ng-com-app/polyfills.33dedae09ce12262.js",
+        "/ssc-ng-com-app/runtime.a9cd64fb14d2aa9f.js",
+        "/ssc-ng-com-app/styles.8c963a0dfaa22059.css"
+      ],
+      "patterns": []
+    },
+    {
+      "name": "assets",
+      "installMode": "prefetch",
+      "updateMode": "prefetch",
+      "cacheQueryOptions": {
+        "ignoreVary": true
+      },
+      "urls": [
+        "/ssc-ng-com-app/assets/config/messages/ssc-log.json",
+        "/ssc-ng-com-app/assets/config/messages/ssc-message.json",
+        "/ssc-ng-com-app/assets/config/mockData/barcode.json",
+        "/ssc-ng-com-app/assets/config/page/ssc-page-title.json",
+        "/ssc-ng-com-app/assets/config/resource/resource.json",
+        "/ssc-ng-com-app/assets/config/resource/resource_en.json",
+        "/ssc-ng-com-app/assets/config/system.config.json",
+        "/ssc-ng-com-app/assets/icons/icon_back.png",
+        "/ssc-ng-com-app/assets/icons/icon_barcode.png",
+        "/ssc-ng-com-app/assets/icons/icon_browser.png",
+        "/ssc-ng-com-app/assets/icons/icon_database.png",
+        "/ssc-ng-com-app/assets/icons/icon_facial-recognition.png",
+        "/ssc-ng-com-app/assets/icons/icon_gear.png",
+        "/ssc-ng-com-app/assets/icons/icon_keyboard.png",
+        "/ssc-ng-com-app/assets/icons/icon_login-door.png",
+        "/ssc-ng-com-app/assets/icons/icon_speech-bubble.png",
+        "/ssc-ng-com-app/icon_back.8b3194f6e7827af5.png"
+      ],
+      "patterns": []
+    }
+  ],
+  "dataGroups": [],
+  "hashTable": {
+    "/ssc-ng-com-app/317.9f726e1f79d54e55.js": "64a2cb3c2359754650ca12711feda738e20ea864",
+    "/ssc-ng-com-app/408.2711c476ef86ccf8.js": "5606e59b74fc5aefe48b3b023f4c71f96e2dc5b5",
+    "/ssc-ng-com-app/813.1a21045294d3e8ac.js": "17ee9b317ef3a2b2e912a74bcf38c6579f5f45ad",
+    "/ssc-ng-com-app/872.01773f29d90bc27a.js": "db9db16ec5092e814ff21b0e64972fe863fefb8c",
+    "/ssc-ng-com-app/assets/config/messages/ssc-log.json": "dec20477327be61785cdb6c15ddc41043e18aea1",
+    "/ssc-ng-com-app/assets/config/messages/ssc-message.json": "3b761958e91781500948b5205a43698af0c267a9",
+    "/ssc-ng-com-app/assets/config/mockData/barcode.json": "1545ada0216a7e050c37ce055d8efe8a0202b725",
+    "/ssc-ng-com-app/assets/config/page/ssc-page-title.json": "27cb3c3917b9d06ec56e62ee288a6ea23ceda01a",
+    "/ssc-ng-com-app/assets/config/resource/resource.json": "3ff720e4da9388d8e71df6d1da216cd57d13c370",
+    "/ssc-ng-com-app/assets/config/resource/resource_en.json": "0c0e125e2ac37aeceba29f2f14647ca3354476d4",
+    "/ssc-ng-com-app/assets/config/system.config.json": "19d49d1484c12a57aa68b57340f9b3ddb901f08c",
+    "/ssc-ng-com-app/assets/icons/icon_back.png": "88a613318701990bf317a04f2bbd886da8c76eb9",
+    "/ssc-ng-com-app/assets/icons/icon_barcode.png": "d06cc97a357f490ab71be26b7f3ddfd536b15fa7",
+    "/ssc-ng-com-app/assets/icons/icon_browser.png": "7abf8cf59779cbd78b802bb722e4eb1224982832",
+    "/ssc-ng-com-app/assets/icons/icon_database.png": "c7a7415f6d00def0bd28626b039e28a93f160ed3",
+    "/ssc-ng-com-app/assets/icons/icon_facial-recognition.png": "6d2e42879579fdcc3babb64b617e76a1683af945",
+    "/ssc-ng-com-app/assets/icons/icon_gear.png": "b92be74513804b805242eb6ceb2bcd7170a6dfbc",
+    "/ssc-ng-com-app/assets/icons/icon_keyboard.png": "eaa27d45d605ff9032568bcbc9cb4b4f8dbebe21",
+    "/ssc-ng-com-app/assets/icons/icon_login-door.png": "8a2df378b923ac83cdde25656c41ceb632b5c657",
+    "/ssc-ng-com-app/assets/icons/icon_speech-bubble.png": "e68010b6f5352c53cbb9aad16f1eee7c3dfbcbb0",
+    "/ssc-ng-com-app/favicon.ico": "22f6a4a3bcaafafb0254e0f2fa4ceb89e505e8b2",
+    "/ssc-ng-com-app/icon_back.8b3194f6e7827af5.png": "88a613318701990bf317a04f2bbd886da8c76eb9",
+    "/ssc-ng-com-app/index.html": "dcc3c24d2398600616b514dcb81b048496d149c1",
+    "/ssc-ng-com-app/main.7048515ab89c1030.js": "aad8f5046c01129a894d413500960842472ebe2f",
+    "/ssc-ng-com-app/polyfills.33dedae09ce12262.js": "529ec2c1ea7963be2a7d47e81ffd86684c5a9b95",
+    "/ssc-ng-com-app/runtime.a9cd64fb14d2aa9f.js": "640890def358451814de3af16063699f5ef21e69",
+    "/ssc-ng-com-app/styles.8c963a0dfaa22059.css": "39792b5041758b338abc09044793beb3a87ca216"
+  },
+  "navigationUrls": [
+    {
+      "positive": true,
+      "regex": "^\\/.*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*\\.[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*$"
+    },
+    {
+      "positive": false,
+      "regex": "^\\/(?:.+\\/)?[^/]*__[^/]*\\/.*$"
+    }
+  ],
+  "navigationRequestStrategy": "performance"
+}

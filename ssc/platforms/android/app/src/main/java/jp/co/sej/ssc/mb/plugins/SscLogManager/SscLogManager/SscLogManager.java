@@ -1,4 +1,4 @@
-package jp.co.sej.ssc.mb.plugins.SejLogManager.SejLogManager;
+package jp.co.sej.ssc.mb.plugins.SscLogManager.SscLogManager;
 
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 /**
  * This class echoes a string called from JavaScript.
  */
-public class SejLogManager extends CordovaPlugin {
+public class SscLogManager extends CordovaPlugin {
 
     private static final Logger logger = LogManager.getRootLogger();
 

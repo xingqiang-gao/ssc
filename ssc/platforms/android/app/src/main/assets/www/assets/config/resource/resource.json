@@ -1,0 +1,36 @@
+{
+  "top": {
+    "fw_sample_title": "Angular基盤フレームワーク機能のサンプル実装",
+    "sample_title": "その他のサンプル実装"
+  },
+  "sample": {
+    "class": "ja",
+    "title": "タイトル",
+    "description": "説明"
+  },
+  "sample2": {
+    "class": "ja2",
+    "title": "タイトル2",
+    "description": "説明2"
+  },
+  "sample3": {
+    "label1": "使用食材"
+  },
+  "message": {
+    "message01": "以下のデータでドライ系発注業務を開始します。<br><br>マスタ情報　　　　：{0}<br>発注、品揃登録情報：{1}<br>在庫、販売実績情報：{2}"
+  },
+  "messageParam": {
+    "param1": "パラメータ1",
+    "param2": "パラメータ2",
+    "param3": "パラメータ3",
+    "param4": "パラメータ4",
+    "param5": "パラメータ5"
+  },
+  "ssc-common-message-pop": {
+    "messagebox-ok-btn": "決定",
+    "messagebox-cancel-btn": "キャンセル"
+  },
+  "SscPopUpPageTitle": {
+    "SamplePageId": "ポップアップタイトル名称"
+  }
+}

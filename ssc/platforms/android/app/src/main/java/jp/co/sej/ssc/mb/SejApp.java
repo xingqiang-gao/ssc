@@ -3,7 +3,7 @@ package jp.co.sej.ssc.mb;
 import android.app.Application;
 
 
-import jp.co.sej.ssc.mb.plugins.SejLogManager.log4j2android.AndroidLog4jHelper;
+import jp.co.sej.ssc.mb.plugins.SscLogManager.log4j2android.AndroidLog4jHelper;
 
 public class SejApp extends Application {
 

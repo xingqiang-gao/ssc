@@ -1,0 +1,22 @@
+[
+  {
+    "messageId": "SCSL0001",
+    "type": "INFO",
+    "text": "{0}の処理が開始しました。"
+  },
+  {
+    "messageId": "SCSL0002",
+    "type": "INFO",
+    "text": "{0}の処理が終了しました。"
+  },
+  {
+    "messageId": "SCSL0003",
+    "type": "INFO",
+    "text": "{0}の処理が開始しました。パラメータ={1}"
+  },
+  {
+    "messageId": "SCSL0004",
+    "type": "INFO",
+    "text": "{0}の処理が終了しました。結果={1}"
+  }
+]

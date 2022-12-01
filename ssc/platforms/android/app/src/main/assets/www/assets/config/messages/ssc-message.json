@@ -1,0 +1,9 @@
+[
+  {
+    "messageId": "SSAMXXXX",
+    "type": "INFO",
+    "button": "OK,CANCEL",
+    "default": "CANCEL",
+    "text": "以下のデータでドライ系発注業務を開始します。<br><br>マスタ情報　　　　：{0}<br>発注、品揃登録情報：{1}<br>在庫、販売実績情報：{2}"
+  }
+]

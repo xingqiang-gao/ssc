@@ -1,0 +1,36 @@
+{
+  "top": {
+    "fw_sample_title": "Angular Framework Sample",
+    "sample_title": "Other Sample"
+  },
+  "sample": {
+    "class": "en",
+    "title": "Title",
+    "description": "Description"
+  },
+  "sample2": {
+    "class": "en2",
+    "title": "Title2",
+    "description": "Description2"
+  },
+  "sample3": {
+    "label1": "Food May Contain"
+  },
+  "message": {
+    "message01": "We will start the dry ordering business with the following data. <br><br>Master information: {0}<br>Order, assortment registration information: {1}<br>Inventory, sales performance information: {2}"
+  },
+  "messageParam": {
+    "param1": "param1",
+    "param2": "param2",
+    "param3": "param3",
+    "param4": "param4",
+    "param5": "param5"
+  },
+  "ssc-common-message-pop": {
+    "messagebox-ok-btn": "ok",
+    "messagebox-cancel-btn": "cancel"
+  },
+  "SscPopUpPageTitle": {
+    "SamplePageId": "PopuptitleName"
+  }
+}

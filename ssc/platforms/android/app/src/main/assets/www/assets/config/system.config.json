@@ -1,0 +1,37 @@
+[
+    {
+        "key": "version",
+        "value": "0.0.1",
+        "//": "version"
+    },
+    {
+        "key": "rest_api_url",
+        "value": "https://external-web-api.sej-step05-sandbox.com/api/v1",
+        "//": "マイクロサービスの通信ベースURL"
+    },
+    {
+        "key": "rest_api_timeout",
+        "value": "1800000",
+        "//": "単位はミリ秒"
+    },
+    {
+        "key": "message_file_list",
+        "value": [
+            "assets/config/messages/ssc-message.json",
+            "assets/config/messages/ssc-log.json"
+        ],
+        "//": "読み込みメッセージファイル一覧"
+    },
+    {
+        "key": "page_title",
+        "value": [
+            "assets/config/page/ssc-page-title.json"
+        ],
+        "//": "画面名設定ファイル"
+    },
+    {
+        "key": "system_log_level",
+        "value": "INFO",
+        "//": "ログ出力レベル設定、設定可能値「DEBUG、INFO、WARN、ERROR」"
+    }
+]

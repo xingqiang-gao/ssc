@@ -1,4 +1,4 @@
-package jp.co.sej.ssc.mb.plugins.SejLogManager.log4j2android;
+package jp.co.sej.ssc.mb.plugins.SscLogManager.log4j2android;
 
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.config.plugins.Plugin;

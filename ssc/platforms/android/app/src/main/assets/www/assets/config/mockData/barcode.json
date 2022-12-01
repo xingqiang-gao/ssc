@@ -1,0 +1,27 @@
+[
+    {
+        "delayTime": 2,
+        "barcodeFormat": "UPC_A",
+        "barcode": "012345678905"
+    },
+    {
+        "delayTime": 4,
+        "barcodeFormat": "JAN_13",
+        "barcode": "4901001099733"
+    },
+    {
+        "delayTime": 1,
+        "barcodeFormat": "UPC_E",
+        "barcode": "01234565"
+    },
+    {
+        "delayTime": 3,
+        "barcodeFormat": "JAN_8",
+        "barcode": "45175619"
+    },
+    {
+        "delayTime": 5,
+        "barcodeFormat": "NW-7",
+        "barcode": "B032081212481740788"
+    }
+]
