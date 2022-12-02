@@ -1,13 +1,14 @@
 package jp.co.sej.ssc.mb.plugins.ns;
 
 
-import static jp.co.sej.ssc.mb.R.*;
-
 import android.annotation.SuppressLint;
 import android.app.Service;
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
+import android.os.VibratorManager;
 import android.util.Log;
 
 import org.apache.cordova.CordovaPlugin;
@@ -24,11 +25,15 @@ import jp.co.sej.ssc.mb.R;
 
 /**
  * This class echoes a string called from JavaScript.
+ *
+ * @author wangning
  */
 public class NotificationSound extends CordovaPlugin {
 
     private static CallbackContext initCallbackContext;
     private static final String TAG = "NotificationSound";
+    public static int current;
+    private Vibrator vibrator;
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -38,34 +43,46 @@ public class NotificationSound extends CordovaPlugin {
                 Log.i(TAG, getLogForNow("NotificationSound init success."));
                 return true;
             case "soundNotification":
-                String message = args.getString(0);
-                this.soundNotification(message, callbackContext);
+                soundNotification(cordova.getContext());
                 return true;
             case "vibratorNotification":
                 int second = args.getInt(0);
-                this.vibratorNotification(second, callbackContext);
+                this.vibratorNotification(cordova.getContext(), second, callbackContext);
                 return true;
             case "vibratorStop":
                 this.vibratorStop();
                 return true;
+            default:
         }
         return false;
-
     }
 
-    private void soundNotification(String message, CallbackContext callbackContext) {
-        MediaPlayer mediaPlayer = MediaPlayer.create(cordova.getActivity(), R.raw.beep);
-        mediaPlayer.start();
+    public static void soundNotification(Context context) {
+        AudioManager audioManager = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.beep);
+        mediaPlayer.setOnCompletionListener(new CompletionListener(audioManager));
+        current = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        if (current == 0) {
+            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 8, 0);
+            mediaPlayer.start();
+        } else {
+            mediaPlayer.start();
+        }
     }
 
-    private void vibratorNotification(int second, CallbackContext callbackContext) {
-        Vibrator vibrator = (Vibrator) cordova.getActivity().getSystemService(Service.VIBRATOR_SERVICE);
+    private void vibratorNotification(Context context, int second, CallbackContext callbackContext) {
         VibrationEffect vibrationEffect = VibrationEffect.createOneShot(second, VibrationEffect.DEFAULT_AMPLITUDE);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            VibratorManager vibratorManager = (VibratorManager) context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE);
+            vibrator = vibratorManager.getDefaultVibrator();
+        } else {
+            vibrator = (Vibrator) context.getSystemService(Service.VIBRATOR_SERVICE);
+        }
         vibrator.vibrate(vibrationEffect);
         callbackContext.success();
     }
+
     private void vibratorStop() {
-        Vibrator vibrator = (Vibrator) cordova.getActivity().getSystemService(Service.VIBRATOR_SERVICE);
         vibrator.cancel();
     }
 

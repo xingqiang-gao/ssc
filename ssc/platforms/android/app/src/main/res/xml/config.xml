@@ -22,7 +22,7 @@
     <feature name="FCMPlugin">
         <param
             name="android-package"
-            value="jp.co.sej.ssc.mb.plugins.fcm.FCMPlugin" />
+            value="jp.co.sej.ssc.mb.plugins.fcm.FcmPlugin" />
         <param
             name="onload"
             value="true" />
@@ -35,7 +35,7 @@
     <feature name="SscLogManager">
         <param
             name="android-package"
-            value="jp.co.sej.ssc.mb.plugins.SscLogManager.SscLogManager.SscLogManager" />
+            value="jp.co.sej.ssc.mb.plugins.lm.SscLogManager" />
     </feature>
     <feature name="BackgroundHandle">
         <param

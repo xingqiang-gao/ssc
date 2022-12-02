@@ -7,8 +7,8 @@
             <ThresholdFilter level="ALL" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="%m" />
         </Logcat>
-        <RollingFile name="RollingFile" fileName="${android:logfilesdir}/DeviceAPLog_${date:yyyyMMdd}.log"
-            filePattern="${android:logfilesdir}/DeviceAPLog_%d{yyyyMMdd}_%i.log">
+        <RollingFile name="RollingFile" fileName="${android:logFilesDir}/DeviceAPLog_${date:yyyyMMdd}.log"
+            filePattern="${android:logFilesDir}/DeviceAPLog_%d{yyyyMMdd}_%i.log">
             <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout>
                 <Pattern>%m%n</Pattern>

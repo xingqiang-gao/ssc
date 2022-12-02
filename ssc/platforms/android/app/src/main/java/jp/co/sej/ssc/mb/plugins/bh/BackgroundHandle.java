@@ -1,5 +1,9 @@
 package jp.co.sej.ssc.mb.plugins.bh;
 
+import static jp.co.sej.ssc.mb.ConstantsDictionary.PLUGINS_DO_TASK;
+import static jp.co.sej.ssc.mb.ConstantsDictionary.PLUGINS_INIT;
+
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 import org.apache.cordova.CordovaPlugin;
@@ -14,6 +18,8 @@ import java.util.Date;
 
 /**
  * This class echoes a string called from JavaScript.
+ *
+ * @author wangning
  */
 public class BackgroundHandle extends CordovaPlugin {
 
@@ -22,13 +28,13 @@ public class BackgroundHandle extends CordovaPlugin {
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        if (action.equals("init")) {
+        if (PLUGINS_INIT.equals(action)) {
             initCallbackContext = callbackContext;
             Log.i(TAG, getLogForNow("BackgroundHandle init success."));
             return true;
-        }else if (action.equals("doTask")) {
+        } else if (PLUGINS_DO_TASK.equals(action)) {
             this.doTask();
-            return  true;
+            return true;
         }
         return false;
     }
@@ -51,9 +57,10 @@ public class BackgroundHandle extends CordovaPlugin {
         }
     }
 
-    public static String getLogForNow(String log){
+    @SuppressLint("SimpleDateFormat")
+    public static String getLogForNow(String log) {
         Date d = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
-        return  "TimeStamp: " + sdf.format(d) +"  "+  log;
+        return "TimeStamp: " + sdf.format(d) + "  " + log;
     }
 }

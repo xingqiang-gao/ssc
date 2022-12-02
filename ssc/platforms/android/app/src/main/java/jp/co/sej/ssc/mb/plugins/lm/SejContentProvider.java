@@ -1,4 +1,4 @@
-package jp.co.sej.ssc.mb;
+package jp.co.sej.ssc.mb.plugins.lm;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;
@@ -18,13 +18,16 @@ import androidx.annotation.Nullable;
 
 import java.util.HashMap;
 
+/**
+ * @author gaoxingqiang
+ */
 public class SejContentProvider extends ContentProvider {
 
     static final String PROVIDER_NAME = "jp.co.sej.ssc.mb.SejContent";
     public static final String URL = "content://" + PROVIDER_NAME + "/content";
     public static final Uri CONTENT_URI = Uri.parse(URL);
 
-    public static final String _ID = "_id";
+    public static final String ID = "_id";
     public static final String NAME = "key1";
     public static final String VALUE = "value1";
 
@@ -33,11 +36,12 @@ public class SejContentProvider extends ContentProvider {
     static final int CONTENT = 1;
     static final int CONTENT_ID = 2;
 
-    static final UriMatcher uriMatcher;
-    static{
-        uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-        uriMatcher.addURI(PROVIDER_NAME, "content", CONTENT);
-        uriMatcher.addURI(PROVIDER_NAME, "content/#", CONTENT_ID);
+    static final UriMatcher URIMATCHER;
+
+    static {
+        URIMATCHER = new UriMatcher(UriMatcher.NO_MATCH);
+        URIMATCHER.addURI(PROVIDER_NAME, "content", CONTENT);
+        URIMATCHER.addURI(PROVIDER_NAME, "content/#", CONTENT_ID);
     }
 
     private SQLiteDatabase db;
@@ -51,19 +55,18 @@ public class SejContentProvider extends ContentProvider {
                     " value1 TEXT NOT NULL);";
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
-        DatabaseHelper(Context context){
+        DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
 
         @Override
-        public void onCreate(SQLiteDatabase db)
-        {
+        public void onCreate(SQLiteDatabase db) {
             db.execSQL(CREATE_DB_TABLE);
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            db.execSQL("DROP TABLE IF EXISTS " +  SEJ_TABLE_NAME);
+            db.execSQL("DROP TABLE IF EXISTS " + SEJ_TABLE_NAME);
             onCreate(db);
         }
     }
@@ -74,7 +77,7 @@ public class SejContentProvider extends ContentProvider {
         DatabaseHelper dbHelper = new DatabaseHelper(context);
 
         db = dbHelper.getWritableDatabase();
-        return (db == null)? false:true;
+        return db != null;
     }
 
     @Nullable
@@ -83,23 +86,23 @@ public class SejContentProvider extends ContentProvider {
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
         qb.setTables(SEJ_TABLE_NAME);
 
-        switch (uriMatcher.match(uri)) {
+        switch (URIMATCHER.match(uri)) {
             case CONTENT:
                 qb.setProjectionMap(SEJ_PROJECTION_MAP);
                 break;
 
             case CONTENT_ID:
-                qb.appendWhere( _ID + "=" + uri.getPathSegments().get(1));
+                qb.appendWhere(ID + "=" + uri.getPathSegments().get(1));
                 break;
 
             default:
                 throw new IllegalArgumentException("Unknown URI " + uri);
         }
 
-        if (sortOrder == null || sortOrder == ""){
+        if (sortOrder == null || "".equals(sortOrder)) {
             sortOrder = NAME;
         }
-        Cursor c = qb.query(db, strings, s, selectionArgs,null, null, sortOrder);
+        Cursor c = qb.query(db, strings, s, selectionArgs, null, null, sortOrder);
 
         c.setNotificationUri(getContext().getContentResolver(), uri);
         return c;
@@ -108,7 +111,7 @@ public class SejContentProvider extends ContentProvider {
     @Nullable
     @Override
     public String getType(@NonNull Uri uri) {
-        switch (uriMatcher.match(uri)){
+        switch (URIMATCHER.match(uri)) {
 
             case CONTENT:
                 return "vnd.android.cursor.dir/vnd.example.content";
@@ -123,29 +126,28 @@ public class SejContentProvider extends ContentProvider {
     @Override
     public Uri insert(@NonNull Uri uri, @Nullable ContentValues contentValues) {
 
-        long rowID = db.insert( SEJ_TABLE_NAME, "", contentValues);
+        long rowId = db.insert(SEJ_TABLE_NAME, "", contentValues);
 
-        if (rowID > 0)
-        {
-            Uri _uri = ContentUris.withAppendedId(CONTENT_URI, rowID);
-            getContext().getContentResolver().notifyChange(_uri, null);
-            return _uri;
+        if (rowId > 0) {
+            Uri myUri = ContentUris.withAppendedId(CONTENT_URI, rowId);
+            getContext().getContentResolver().notifyChange(myUri, null);
+            return myUri;
         }
         throw new SQLException("Failed to add a record into " + uri);
     }
 
     @Override
     public int delete(@NonNull Uri uri, @Nullable String s, @Nullable String[] strings) {
-        int count = 0;
+        int count;
 
-        switch (uriMatcher.match(uri)){
+        switch (URIMATCHER.match(uri)) {
             case CONTENT:
-                count = db.delete(SEJ_TABLE_NAME,s, strings);
+                count = db.delete(SEJ_TABLE_NAME, s, strings);
                 break;
 
             case CONTENT_ID:
                 String id = uri.getPathSegments().get(1);
-                count = db.delete( SEJ_TABLE_NAME, _ID +  " = " + id +
+                count = db.delete(SEJ_TABLE_NAME, ID + " = " + id +
                         (!TextUtils.isEmpty(s) ? " AND (" + s + ')' : ""), strings);
                 break;
 
@@ -159,20 +161,20 @@ public class SejContentProvider extends ContentProvider {
 
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String s, @Nullable String[] strings) {
-        int count = 0;
+        int count;
 
-        switch (uriMatcher.match(uri)){
+        switch (URIMATCHER.match(uri)) {
             case CONTENT:
                 count = db.update(SEJ_TABLE_NAME, contentValues, s, strings);
                 break;
 
             case CONTENT_ID:
-                count = db.update(SEJ_TABLE_NAME, contentValues, _ID + " = " + uri.getPathSegments().get(1) +
-                        (!TextUtils.isEmpty(s) ? " AND (" +s + ')' : ""), strings);
+                count = db.update(SEJ_TABLE_NAME, contentValues, ID + " = " + uri.getPathSegments().get(1) +
+                        (!TextUtils.isEmpty(s) ? " AND (" + s + ')' : ""), strings);
                 break;
 
             default:
-                throw new IllegalArgumentException("Unknown URI " + uri );
+                throw new IllegalArgumentException("Unknown URI " + uri);
         }
         getContext().getContentResolver().notifyChange(uri, null);
         return count;

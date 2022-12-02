@@ -1,4 +1,4 @@
-package jp.co.sej.ssc.mb.plugins.SscLogManager.log4j2android;
+package jp.co.sej.ssc.mb.plugins.lm;
 
 import android.content.Context;
 
@@ -19,8 +19,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentMap;
 
-public class AndroidLog4jHelper {
-
+/**
+ * @author wangshiyu
+ */
+public class Log4jHelper {
 
     private static Context appContext;
     private static int configResource;
@@ -31,10 +33,10 @@ public class AndroidLog4jHelper {
 
     public static void initialise(Context context, int configResource) {
         appContext = context;
-        AndroidLog4jHelper.configResource = configResource;
-        System.setProperty("Log4jContextSelector", "jp.co.sej.ssc.mb.plugins.SscLogManager.log4j2android.AndroidContextSelector");
+        Log4jHelper.configResource = configResource;
+        System.setProperty("Log4jContextSelector", "jp.co.sej.ssc.mb.plugins.lm.Log4jContextSelector");
         System.setProperty("log4j2.disable.jmx", "true");
-        injectPlugins("jp.co.sej.ssc.mb.plugins.SscLogManager.log4j2android", new Class<?>[] { AndroidLookup.class, LogcatAppender.class });
+        injectPlugins("jp.co.sej.ssc.mb.plugins.lm", new Class<?>[]{Log4jLookup.class, LogcatAppender.class});
     }
 
     public static void injectPlugins(String packageName, Class<?>[] classes) {
@@ -45,7 +47,9 @@ public class AndroidLog4jHelper {
             f.setAccessible(true);
             try {
                 ConcurrentMap<String, Map<String, List<PluginType<?>>>> map = (ConcurrentMap<String, Map<String, List<PluginType<?>>>>) f.get(reg);
-                map.put(packageName, loadFromClasses(classes));
+                if (map != null) {
+                    map.put(packageName, loadFromClasses(classes));
+                }
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
@@ -68,14 +72,12 @@ public class AndroidLog4jHelper {
             resolver.setClassLoader(classLoader);
         }
 
-        final Map<String, List<PluginType<?>>> newPluginsByCategory = new HashMap<String, List<PluginType<?>>>();
-        for (final Class<?> clazz : classes ) {
+        final Map<String, List<PluginType<?>>> newPluginsByCategory = new HashMap<>();
+        for (final Class<?> clazz : classes) {
             final Plugin plugin = clazz.getAnnotation(Plugin.class);
+            assert plugin != null;
             final String categoryLowerCase = plugin.category().toLowerCase();
-            List<PluginType<?>> list = newPluginsByCategory.get(categoryLowerCase);
-            if (list == null) {
-                newPluginsByCategory.put(categoryLowerCase, list = new ArrayList<PluginType<?>>());
-            }
+            List<PluginType<?>> list = newPluginsByCategory.computeIfAbsent(categoryLowerCase, k -> new ArrayList<>());
             final PluginEntry mainEntry = new PluginEntry();
             final String mainElementName = plugin.elementType().equals(
                     Plugin.EMPTY) ? plugin.name() : plugin.elementType();
@@ -85,8 +87,7 @@ public class AndroidLog4jHelper {
             mainEntry.setClassName(clazz.getName());
             mainEntry.setPrintable(plugin.printObject());
             mainEntry.setDefer(plugin.deferChildren());
-            @SuppressWarnings({"unchecked","rawtypes"})
-            final PluginType<?> mainType = new PluginType(mainEntry, clazz, mainElementName);
+            @SuppressWarnings({"rawtypes"}) final PluginType<?> mainType = new PluginType(mainEntry, clazz, mainElementName);
             list.add(mainType);
             final PluginAliases pluginAliases = clazz.getAnnotation(PluginAliases.class);
             if (pluginAliases != null) {
@@ -100,8 +101,7 @@ public class AndroidLog4jHelper {
                     aliasEntry.setClassName(clazz.getName());
                     aliasEntry.setPrintable(plugin.printObject());
                     aliasEntry.setDefer(plugin.deferChildren());
-                    @SuppressWarnings({"unchecked","rawtypes"})
-                    final PluginType<?> aliasType = new PluginType(aliasEntry, clazz, aliasElementName);
+                    @SuppressWarnings({"rawtypes"}) final PluginType<?> aliasType = new PluginType(aliasEntry, clazz, aliasElementName);
                     list.add(aliasType);
                 }
             }

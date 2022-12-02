@@ -18,23 +18,42 @@
  */
 
 package jp.co.sej.ssc.mb;
+
 import static java.lang.Thread.sleep;
+
+import static jp.co.sej.ssc.mb.ConstantsDictionary.CDV_START_IN_BACKGROUND;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
+
 import org.apache.cordova.*;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
-import jp.co.sej.ssc.mb.plugins.fcm.FCMPlugin;
+import jp.co.sej.ssc.mb.plugins.fcm.FcmPlugin;
 
-public class MainActivity extends CordovaActivity
-{
+/**
+ * @author gaoxingqiang
+ */
+public class MainActivity extends CordovaActivity {
     private final String TAG = "MainActivity";
     Intent intent = null;
+
+    @SuppressWarnings("AlibabaThreadShouldSetName")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,20 +63,19 @@ public class MainActivity extends CordovaActivity
         intent = getIntent();
         Bundle extras = intent.getExtras();
 
-        if(extras !=null) {
+        if (extras != null) {
             String extras0 = intent.getExtras().getString("title");
             String extras1 = intent.getExtras().getString("body");
             Log.i(TAG, getLogForNow("onCreate Message Title: " + extras0));
-            Log.i(TAG, getLogForNow("onCreate Message Body: " +extras1));
-            Map<String, Object> data = new HashMap<String, Object>();
+            Log.i(TAG, getLogForNow("onCreate Message Body: " + extras1));
+            Map<String, Object> data = new HashMap<>(16);
             data.put("title", extras0);
             data.put("body", extras1);
 
-            Thread ft = new Thread(new FCMThread(data));
-            ft.start();
+            fcmStart(data);
         }
 
-        if (extras != null && extras.getBoolean("cdvStartInBackground", false)) {
+        if (extras != null && extras.getBoolean(CDV_START_IN_BACKGROUND, false)) {
             moveTaskToBack(true);
         }
         appLinkProcess();
@@ -70,7 +88,7 @@ public class MainActivity extends CordovaActivity
     public void onStart() {
         super.onStart();
         Log.i("onStart:", "true");
-        if(intent.getExtras() !=null) {
+        if (intent.getExtras() != null) {
             String extras0 = intent.getExtras().getString("title");
             String extras1 = intent.getExtras().getString("body");
             Log.i(TAG, getLogForNow("onStart Message Title: " + extras0));
@@ -80,11 +98,11 @@ public class MainActivity extends CordovaActivity
         appLinkProcess();
     }
 
-    private void appLinkProcess(){
+    private void appLinkProcess() {
         Intent appLinkIntent = getIntent();
         String appLinkAction = appLinkIntent.getAction();
         Uri appLinkData = appLinkIntent.getData();
-        if(appLinkData != null) {
+        if (appLinkData != null) {
             String path = appLinkData.getPath();
             String param = appLinkData.getQuery();
             Log.i("test path:", path);
@@ -95,42 +113,54 @@ public class MainActivity extends CordovaActivity
     @Override
     public void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
-        if(intent.getExtras() !=null) {
+        if (intent.getExtras() != null) {
             String extras0 = intent.getExtras().getString("title");
             String extras1 = intent.getExtras().getString("body");
             Log.i(TAG, getLogForNow("onNewIntent Msg Title:" + extras0));
             Log.i(TAG, getLogForNow("onNewIntent Msg Body:" + extras1));
-            Map<String, Object> data = new HashMap<String, Object>();
+            Map<String, Object> data = new HashMap<>(16);
             data.put("title", extras0);
             data.put("body", extras1);
-            FCMPlugin.sendPushPayload( data );
+            FcmPlugin.sendPushPayload(data);
         }
         appLinkProcess();
     }
 
-    private String getLogForNow(String log){
+    @SuppressLint("SimpleDateFormat")
+    private String getLogForNow(String log) {
         Date d = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS");
-        return  "TimeStamp: " + sdf.format(d) +"  "+  log;
+        return "TimeStamp: " + sdf.format(d) + "  " + log;
     }
 
-    class FCMThread implements Runnable{
-        private Map<String, Object> _data = null;
-        public FCMThread(Map<String, Object> data){
-            this._data = data;
+    class FcmThread implements Runnable {
+        private final Map<String, Object> data;
+
+        public FcmThread(Map<String, Object> data) {
+            this.data = data;
         }
 
         @Override
         public void run() {
             try {
-                Log.i("FCMThread:",  getLogForNow("running begin..."));
+                Log.i("FcmThread:", getLogForNow("running begin..."));
                 sleep(60000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            Log.i("FCMThread:", getLogForNow("running end..."));
-            Log.i("FCMThread", getLogForNow("Send Message To Angular: " + this._data.toString()));
-            FCMPlugin.sendPushPayload( this._data );
+            Log.i("FcmThread:", getLogForNow("running end..."));
+            Log.i("FcmThread", getLogForNow("Send Message To Angular: " + this.data.toString()));
+            FcmPlugin.sendPushPayload(this.data);
         }
     }
+
+    private void fcmStart(Map<String, Object> data) {
+        ThreadFactory threadFactory = new ThreadFactoryBuilder().setNameFormat("singleThreadPool").build();
+        ThreadPoolExecutor singleThreadPool = new ThreadPoolExecutor(
+                1, 1, 0L,
+                TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(), threadFactory);
+        singleThreadPool.execute(new FcmThread(data));
+        singleThreadPool.shutdown();
+    }
+
 }
